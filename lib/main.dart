@@ -1,111 +1,165 @@
+  
 import 'package:flutter/material.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
+void main(){
+  runApp(new LoginThreePage());
+}
+class LoginThreePage extends StatelessWidget {
+  static final String path = "lib/src/pages/login/login3.dart";
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      body: Stack(
+        children: <Widget>[
+          Container(
+            height: 650,
+            child: RotatedBox(
+              quarterTurns: 2,
+              child: WaveWidget(
+                config: CustomConfig(
+                    gradients: [
+                        [Colors.deepPurple, Colors.deepPurple.shade200],
+                        [Colors.indigo.shade200, Colors.purple.shade200],
+                    ],
+                    durations: [19440, 10800],
+                    heightPercentages: [0.20, 0.25],
+                    blur: MaskFilter.blur(BlurStyle.solid, 10),
+                    gradientBegin: Alignment.bottomLeft,
+                    gradientEnd: Alignment.topRight,
+                ),
+                waveAmplitude: 0,
+                size: Size(
+                    double.infinity,
+                    double.infinity,
+                ),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
+          ),
+          ListView(
+            children: <Widget>[
+              Container(
+                height: 400,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Login", textAlign: TextAlign.center, style: TextStyle(
+                      color: Colors.white70,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28.0
+                    )),
+                    Card(
+                      margin: EdgeInsets.only(left: 30, right:30, top:30),
+                      elevation: 11,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.person, color: Colors.black26,),
+                          suffixIcon: Icon(Icons.check_circle, color: Colors.black26,),
+                          hintText: "Username",
+                          hintStyle: TextStyle(color: Colors.black26),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0)
+                        ),
+                      ),
+                    ),
+                    Card(
+                      margin: EdgeInsets.only(left: 30, right:30, top:20),
+                      elevation: 11,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.lock, color: Colors.black26,),
+                          hintText: "Password",
+                          hintStyle: TextStyle(
+                            color: Colors.black26,
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0)
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(30.0),
+                      child: RaisedButton(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        color: Colors.pink,
+                        onPressed: (){},
+                        elevation: 11,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40.0))),
+                        child: Text("Login", style: TextStyle(
+                          color: Colors.white70
+                        )),
+                      ),
+                    ),
+                    Text("Forgot your password?", style: TextStyle(
+                      color: Colors.white
+                    ))
+                  ],
+                ),
+              ),
+              SizedBox(height: 100,),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text("or, connect with"),
+                    SizedBox(height: 20.0,),
+                    Row(
+                      children: <Widget>[
+                        SizedBox(width: 20.0,),
+                        Expanded(
+                          child: RaisedButton(
+                            child: Text("Facebook"),
+                            textColor: Colors.white,
+                            color: Colors.blue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(40)),
+                            ),
+                            onPressed: (){},
+                          ),
+                        ),
+                        SizedBox(width: 10.0,),
+                        Expanded(
+                          child: RaisedButton(
+                            child: Text("Twitter"),
+                            textColor: Colors.white,
+                            color: Colors.indigo,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(40)),
+                            ),
+                            onPressed: (){},
+                          ),
+                        ),
+                        SizedBox(width: 20.0,),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Dont have an account?"),
+                        FlatButton(child: Text("Sign up"), textColor: Colors.indigo, onPressed: (){},)
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
