@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 void main(){
-  runApp(new LoginThreePage());
+  runApp(new MaterialApp(
+      title: "Login Animated Screen",
+      home: AnimatedLoginPage(),
+  ));
 }
-class LoginThreePage extends StatelessWidget {
-  static final String path = "lib/src/pages/login/login3.dart";
+class AnimatedLoginPage extends StatelessWidget {
+  // static final String path = "lib/src/pages/login/login3.dart";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,7 +158,7 @@ class LoginThreePage extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ],
